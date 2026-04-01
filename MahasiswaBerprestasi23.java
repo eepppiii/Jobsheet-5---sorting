@@ -1,26 +1,27 @@
+import java.util.Scanner;
+
 public class MahasiswaBerprestasi23 {
     Mahasiswa23[] listMhs = new Mahasiswa23[5];
-    int idx;
+    int idx = 0;
 
     void tambah(Mahasiswa23 m) {
         if (idx < listMhs.length) {
             listMhs[idx] = m;
             idx++;
-        } else {
-            System.out.println("Data sudah penuh");
         }
     }
 
+    // ✅ DIPERBAIKI: hanya menampilkan data yang terisi
     void tampil() {
-        for (Mahasiswa23 m : listMhs) {
-            m.tampilinformasi();
+        for (int i = 0; i < idx; i++) {
+            listMhs[i].tampilinformasi();
             System.out.println("-----------------");
         }
     }
 
     void bubbleSort() {
-        for (int i = 0; i < listMhs.length; i++) {
-            for (int j = 1; j < listMhs.length - i; j++) {
+        for (int i = 0; i < idx - 1; i++) {
+            for (int j = 1; j < idx - i; j++) {
                 if (listMhs[j].ipk > listMhs[j - 1].ipk) {
                     Mahasiswa23 tmp = listMhs[j];
                     listMhs[j] = listMhs[j - 1];
@@ -31,23 +32,29 @@ public class MahasiswaBerprestasi23 {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         MahasiswaBerprestasi23 list = new MahasiswaBerprestasi23();
-        Mahasiswa23 m1 = new Mahasiswa23("123", "Zidan", "2A", 3.2);
-        Mahasiswa23 m2 = new Mahasiswa23("124", "Ayu", "2A", 3.5);
-        Mahasiswa23 m3 = new Mahasiswa23("125", "sofi", "2A", 3.1);
-        Mahasiswa23 m4 = new Mahasiswa23("126", "kita", "2A", 3.9);
-        Mahasiswa23 m5 = new Mahasiswa23("127", "miki", "2A", 3.7);
 
-        list.tambah(m1);
-        list.tambah(m2);
-        list.tambah(m3);
-        list.tambah(m4);
-        list.tambah(m5);
+        for (int i = 0; i < list.listMhs.length; i++) {
+            System.out.print("NIM   : ");
+            String nim = sc.nextLine();
+            System.out.print("Nama  : ");
+            String nama = sc.nextLine();
+            System.out.print("Kelas : ");
+            String kelas = sc.nextLine();
+            System.out.print("IPK   : ");
+            double ipk = sc.nextDouble();
+            sc.nextLine(); // buang enter
 
-        System.out.println("Data Mahasiswa Sebelum Sorting");
+            list.tambah(new Mahasiswa23(nim, nama, kelas, ipk));
+            System.out.println();
+        }
+
+        System.out.println("Data Sebelum Sorting");
         list.tampil();
-        System.out.println("Data Mahasiswa Setelah Sorting Berdasarkan IPK (DESC) :");
+
         list.bubbleSort();
+        System.out.println("Data Setelah Sorting IPK (DESC)");
         list.tampil();
     }
 }
