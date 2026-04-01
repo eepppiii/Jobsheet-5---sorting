@@ -11,7 +11,6 @@ public class MahasiswaBerprestasi23 {
         }
     }
 
-    // ✅ DIPERBAIKI: hanya menampilkan data yang terisi
     void tampil() {
         for (int i = 0; i < idx; i++) {
             listMhs[i].tampilinformasi();
@@ -31,30 +30,29 @@ public class MahasiswaBerprestasi23 {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        MahasiswaBerprestasi23 list = new MahasiswaBerprestasi23();
-
-        for (int i = 0; i < list.listMhs.length; i++) {
-            System.out.print("NIM   : ");
-            String nim = sc.nextLine();
-            System.out.print("Nama  : ");
-            String nama = sc.nextLine();
-            System.out.print("Kelas : ");
-            String kelas = sc.nextLine();
-            System.out.print("IPK   : ");
-            double ipk = sc.nextDouble();
-            sc.nextLine(); // buang enter
-
-            list.tambah(new Mahasiswa23(nim, nama, kelas, ipk));
-            System.out.println();
+    void SelectionSort() {
+        for (int i = 0; i < listMhs.length - 1; i++) {
+            int idxmin = i;
+            for (int j = i + 1; j < listMhs.length; j++) {
+                if (listMhs[j].ipk < listMhs[idxmin].ipk) {
+                    idxmin = j;
+                }
+                Mahasiswa23 tmp = listMhs[idxmin];
+                listMhs[idxmin] = listMhs[i];
+                listMhs[i] = tmp;
+            }
         }
+    }
 
-        System.out.println("Data Sebelum Sorting");
-        list.tampil();
-
-        list.bubbleSort();
-        System.out.println("Data Setelah Sorting IPK (DESC)");
-        list.tampil();
+    void intertionSort() {
+        for (int i = 1; i < listMhs.length; i++) {
+            Mahasiswa23 temp = listMhs[i];
+            int j = i;
+            while (j > 0 && listMhs[j - 1].ipk < temp.ipk) {
+                listMhs[j] = listMhs[j - 1];
+                j--;
+            }
+            listMhs[j] = temp;
+        }
     }
 }
